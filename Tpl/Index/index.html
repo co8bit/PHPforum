@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{$_SOFTNAME}</title>
+    <title>{$Vsoftname}</title>
 
     <!-- Le styles -->
     <!-- Bootstrap -->   <link href="__TMPL__css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -282,6 +282,9 @@
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#about">About</a></li>
               </ul>
+			<p class="navbar-text pull-right">
+            	  当前身份： {$VuserName}
+            </p>
             </div><!--/.nav-collapse -->
           </div><!-- /.navbar-inner -->
         </div><!-- /.navbar -->
@@ -301,7 +304,8 @@
             <div class="carousel-caption">
               <h1>欢迎</h1>
               <p class="lead">这是一款基于LBS的可视化增强论坛。</p>
-              <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+              <a class="btn btn-large btn-primary" href="__URL__/login.php">登录</a>
+              <a class="btn btn-large btn-primary" href="__URL__/sign.php">注册</a>
             </div>
           </div>
         </div>
@@ -319,7 +323,8 @@
 
     <div class="container marketing">
 
-      <!-- Three columns of text below the carousel -->
+	<!-- Three columns of text below the carousel -->
+	<!-- TODO: 最新帖子 -->
       <div class="row">
         <div class="span4">
           <img class="img-circle" data-src="holder.js/140x140">
