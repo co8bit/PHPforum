@@ -54,20 +54,56 @@ class IndexAction extends Action
     {
     	//$this->assign('waitSecond',135);
     	 
-    	$dbuser = M("User");
+    	$dbuser = M("User");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
     	$condition['userName'] = $this->_post('userName');
     	$condition['userPassword'] = $this->_post('userPassword');
     	$result = $dbuser->where($condition)->select();
-    	 
     	if($result)
     	{
     		session('userName',$result[0]['userName']);
     		session('userPower',$result[0]['userPower']);
-    		$this->success('登陆成功','index');/////////////////////////////////////////////////////////
+    		$this->success('登陆成功','index');
     	}
     	else
     	{
     		$this->error('登录失败');
+    	}
+    }
+    
+    public function sign()//注册页面
+    {
+    	//渲染标题栏
+    	IndexAction::xuanranbianlan($this);
+    }
+    
+    public function toSign()//判断是否注册成功
+    {
+    	$dbUser = D("User");
+    	$dbUser->create();
+    	
+    	$password1 = $dbUser->userPassword;
+    	$password2 = $this->_post('userPassword2');
+    	if ($password1 != $password2)
+    		$this->error('两次输入的密码不一样');
+    	else
+    	{
+    		$condition['userName'] = $this->_post('userName');
+    		$condition['userPassword'] = $this->_post('userPassword');
+    		$condition['userPower'] = 1;
+    		$result = $dbUser->add($condition);
+    		if($result)
+    		{
+    			session('userName',$condition['userName']);//////////////////这里进行了session
+    			session('userPower',$condition['userPower']);
+    			$this->success('注册成功','index');
+    		}
+    		else
+    		{
+    			if ( $dbUser->getError() == '非法数据对象！')//! 号后面有个空格
+    				$this->error('注册失败：'.'有未填项');
+    			else
+    				$this->error('注册失败：'.$dbUser->getError());
+    		}
     	}
     }
     
