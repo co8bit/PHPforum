@@ -29,7 +29,7 @@ class IndexAction extends Action
 		$th->display();
 	}
 	
-	private function powerCheck($th)//渲染侧栏及标题栏
+	private function powerCheck()//渲染侧栏及标题栏
 	{
 		if (!session('?userName'))
 		{
@@ -39,7 +39,16 @@ class IndexAction extends Action
 	
     public function index()
     {
+    	$boardMap = M('board');
+    	$boardMap = $boardMap -> order('id') -> select();
+    	$this->assign('boardList',$boardMap);
+    	
+    	//渲染标题栏
+    	IndexAction::xuanranbianlan($this);
+    }
     
+    public function aboutMe()//登陆页面
+    {
     	//渲染标题栏
     	IndexAction::xuanranbianlan($this);
     }
@@ -122,4 +131,31 @@ class IndexAction extends Action
     		$this->success('退出成功','index');////////////////////////////////////////////////////////
     }
     
+    public function board()
+    {
+    	//IndexAction::powerCheck();
+    	$boardID['boardID'] = $this->_get('id');
+    	$dbUser = M("bbspost");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
+    	$dbUser = $dbUser -> where($boardID) -> where('parentID=id' ) ->order('updateTime')-> select();
+    	$this->assign('boardList',$dbUser);
+    	//dump($dbUser);
+    	//渲染标题栏
+    	IndexAction::xuanranbianlan($this);
+    }
+    
+    public function bbspost()
+    {
+    	//IndexAction::powerCheck();
+    	$condition['boardID'] = $this->_get('boardID');
+    	$condition['parentID'] = $this->_get('id');
+    	$dbUser = M("bbspost");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
+    	$dbUser = $dbUser -> where($condition) ->order('createTime') -> select();
+    	//dump($dbUser);
+    	$title = $dbUser[0]['title'];
+    	$this->assign('boardList',$dbUser);
+    	$this->assign('title',$title);
+    	//dump($dbUser);
+    	//渲染标题栏
+    	IndexAction::xuanranbianlan($this);
+    }
 }

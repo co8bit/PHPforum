@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>{$Vsoftname}</title>
+    <title><?php echo ($Vsoftname); ?></title>
 
     <!-- Le styles -->
     <!-- Bootstrap -->   <link href="__TMPL__css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -275,7 +275,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#">{$_SOFTNAME}</a>
+            <a class="brand" href="#"><?php echo ($_SOFTNAME); ?></a>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
               <ul class="nav">
@@ -283,7 +283,7 @@
                 <li><a href="__URL__/aboutMe">About</a></li>
               </ul>
 			<p class="navbar-text pull-right">
-            	  当前身份： {$VuserName}
+            	  当前身份： <?php echo ($VuserName); ?>
             </p>
             </div><!--/.nav-collapse -->
           </div><!-- /.navbar-inner -->
@@ -293,27 +293,6 @@
     </div><!-- /.navbar-wrapper -->
 
 
-
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide">
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="__TMPL__Index/slide-01.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>欢迎</h1>
-              <p class="lead">这是一款基于LBS的可视化增强论坛。</p>
-              <a class="btn btn-large btn-primary" href="__URL__/login.php">登录</a>
-              <a class="btn btn-large btn-primary" href="__URL__/sign.php">注册</a>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-    </div><!-- /.carousel -->
 
 
 
@@ -327,16 +306,16 @@
 
 
       <!-- START THE FEATURETTES -->
-
-		<volist name="boardList" id="vo" empty="没有板块">
-			<hr class="featurette-divider">
+		<div class="featurette">
+				<h2 class="featurette-heading">主题：<?php echo ($title); ?></a></h2>
+		</div>
+		<?php if(is_array($boardList)): $i = 0; $__LIST__ = $boardList;if( count($__LIST__)==0 ) : echo "没有板块" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><hr class="featurette-divider">
 	
+			
 			<div class="featurette">
-	        	<img class="featurette-image {$vo.where}" src="{$vo.pic}">
-				<h2 class="featurette-heading"><a href="__URL__/board.php?id={$vo.id}">{$vo.boardName}</a><span class="muted"><br>版主：{$vo.boardMaster}</span></h2>
-				<p class="lead">{$vo.boardBrief}</p>
-			</div>
-		</volist>
+				<h2 class="featurette-heading"><br>内容：<br><span class="muted"><?php echo ($vo["content"]); ?></span></h2>
+				<p class="lead"><br>发帖者：<?php echo ($vo["author"]); ?>&nbsp&nbsp&nbsp&nbsp发表时间：<?php echo ($vo["createTime"]); ?>&nbsp&nbsp&nbsp&nbsp层数：<?php echo ($i); ?></p>
+			</div><?php endforeach; endif; else: echo "没有板块" ;endif; ?>
 		
 		
       <!-- /END THE FEATURETTES -->
@@ -344,7 +323,7 @@
 
       <!-- FOOTER -->
       <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p class="pull-right"><a href="__URL__/board.php?id=<?php echo ($vo["boardID"]); ?>">返回上一级</a></p>
         <p>&copy; 2013 &middot; <a href="aboutMe">Terms</a></p>
       </footer>
 

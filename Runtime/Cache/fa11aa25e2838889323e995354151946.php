@@ -279,8 +279,8 @@
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
               <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
+                <li class="active"><a href="__URL__">Home</a></li>
+                <li><a href="__URL__/aboutMe">About</a></li>
               </ul>
 			<p class="navbar-text pull-right">
             	  当前身份： <?php echo ($VuserName); ?>
@@ -323,39 +323,19 @@
 
     <div class="container marketing">
 
-	<!-- Three columns of text below the carousel -->
-	<!-- TODO: 最新帖子 -->
-      <div class="row">
-        <div class="span4">
-          <img class="img-circle" data-src="holder.js/140x140">
-          <h2>刘大名</h2>
-          <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div><!-- /.span4 -->
-        <div class="span4">
-          <img class="img-circle" data-src="holder.js/140x140">
-          <h2>王博鑫</h2>
-          <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div><!-- /.span4 -->
-        <div class="span4">
-          <img class="img-circle" data-src="holder.js/140x140">
-          <h2>洪一敏</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div><!-- /.span4 -->
-      </div><!-- /.row -->
+	
 
 
       <!-- START THE FEATURETTES -->
 
-		<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "没有数据" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><hr class="featurette-divider">
+		<?php if(is_array($boardList)): $i = 0; $__LIST__ = $boardList;if( count($__LIST__)==0 ) : echo "没有板块" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><hr class="featurette-divider">
 	
 			<div class="featurette">
-	        	<img class="featurette-image pull-right" src="../assets/img/examples/browser-icon-chrome.png">
-				<h2 class="featurette-heading"><?php echo ($vo["boradName"]); ?><span class="muted"><?php echo ($vo["boardAdmin"]); ?></span></h2>
+	        	<img class="featurette-image <?php echo ($vo["where"]); ?>" src="<?php echo ($vo["pic"]); ?>">
+				<h2 class="featurette-heading"><a href="__URL__/board.php?id=<?php echo ($vo["id"]); ?>"><?php echo ($vo["boardName"]); ?></a><span class="muted"><br>版主：<?php echo ($vo["boardMaster"]); ?></span></h2>
 				<p class="lead"><?php echo ($vo["boardBrief"]); ?></p>
-			</div><?php endforeach; endif; else: echo "没有数据" ;endif; ?>
+			</div><?php endforeach; endif; else: echo "没有板块" ;endif; ?>
+		
 		
       <!-- /END THE FEATURETTES -->
 

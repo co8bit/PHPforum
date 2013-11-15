@@ -294,27 +294,6 @@
 
 
 
-    <!-- Carousel
-    ================================================== -->
-    <div id="myCarousel" class="carousel slide">
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="__TMPL__Index/slide-01.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>欢迎</h1>
-              <p class="lead">这是一款基于LBS的可视化增强论坛。</p>
-              <a class="btn btn-large btn-primary" href="__URL__/login.php">登录</a>
-              <a class="btn btn-large btn-primary" href="__URL__/sign.php">注册</a>
-            </div>
-          </div>
-        </div>
-        
-      </div>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-    </div><!-- /.carousel -->
-
 
 
     <!-- Marketing messaging and featurettes
@@ -332,9 +311,8 @@
 			<hr class="featurette-divider">
 	
 			<div class="featurette">
-	        	<img class="featurette-image {$vo.where}" src="{$vo.pic}">
-				<h2 class="featurette-heading"><a href="__URL__/board.php?id={$vo.id}">{$vo.boardName}</a><span class="muted"><br>版主：{$vo.boardMaster}</span></h2>
-				<p class="lead">{$vo.boardBrief}</p>
+				<h2 class="featurette-heading">主题：<a href="__URL__/bbspost.php?boardID={$vo.boardID}&id={$vo.id}">{$vo.title}</a><span class="muted"><br>发帖者：{$vo.author}</span></h2>
+				<p class="lead">发表时间：{$vo.createTime}&nbsp&nbsp&nbsp&nbsp最后更新时间：{$vo.updateTime}</p>
 			</div>
 		</volist>
 		
@@ -344,7 +322,7 @@
 
       <!-- FOOTER -->
       <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p class="pull-right"><a href="index">返回上一级</a></p>
         <p>&copy; 2013 &middot; <a href="aboutMe">Terms</a></p>
       </footer>
 
