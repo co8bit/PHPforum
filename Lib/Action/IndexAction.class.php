@@ -136,8 +136,9 @@ class IndexAction extends Action
     	//IndexAction::powerCheck();
     	$boardID['boardID'] = $this->_get('id');
     	$dbUser = M("bbspost");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
-    	$dbUser = $dbUser -> where($boardID) -> where('parentID=id' ) ->order('updateTime')-> select();
+    	$dbUser = $dbUser -> where($boardID) -> where('parentID=id' ) ->order('updateTime desc')-> select();
     	$this->assign('boardList',$dbUser);
+    	$this->assign('boardID',$boardID['boardID']);
     	//dump($dbUser);
     	//渲染标题栏
     	IndexAction::xuanranbianlan($this);
@@ -149,13 +150,91 @@ class IndexAction extends Action
     	$condition['boardID'] = $this->_get('boardID');
     	$condition['parentID'] = $this->_get('id');
     	$dbUser = M("bbspost");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
-    	$dbUser = $dbUser -> where($condition) ->order('createTime') -> select();
+    	$dbUser = $dbUser -> where($condition) ->order('createTime desc') -> select();
     	//dump($dbUser);
     	$title = $dbUser[0]['title'];
     	$this->assign('boardList',$dbUser);
     	$this->assign('title',$title);
+    	$this->assign('boardID',$condition['boardID']);
+    	$this->assign('id',$condition['parentID']);
     	//dump($dbUser);
     	//渲染标题栏
     	IndexAction::xuanranbianlan($this);
+    }
+    
+    public function newPost()//发帖子页面
+    {
+    	$boardID = $this->_get('boardID');
+    	$this->assign('boardID',$boardID);
+    	//渲染标题栏
+    	IndexAction::xuanranbianlan($this);
+    }
+    
+    public function PullNewPost()
+    {
+    	//IndexAction::powerCheck();
+    	$condition['boardID'] = $this->_post('boardID');
+    	$condition['title'] = $this->_post('title');
+    	$condition['content'] = $this->_post('content');
+    	$condition['author'] = session('userName');
+    	$condition['createTime'] = date("Y-m-d H:i:s");
+    	$condition['updateTime'] = date("Y-m-d H:i:s");
+    	
+    	$dbUser = M("bbspost");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
+    	$dbUser->add($condition);
+    	
+    	//$dbUser2 = M("bbspost");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
+    	$condition2['boardID'] = $this->_post('boardID');
+    	$condition2['title'] = $this->_post('title');
+    	$condition2['content'] = $this->_post('content');
+    	$condition2['author'] = session('userName');
+    	$dbUser2 = $dbUser->where($condition2)->select();
+    	trace($dbUser2,'sele信息','sql');
+    	//dump($dbUser2);
+    	$condition3['parentID'] = $dbUser2[0]['id'];
+    	
+    	$re = $dbUser -> where($condition2) ->save($condition3);
+    	if($re)
+    	{
+    		$this->success('发帖成功','index');
+    	}
+    	else
+    	{
+    			$this->error('发帖失败');
+    	}
+    }
+    
+    public function newRePost()//回复帖子的页面
+    {
+    	$boardID = $this->_get('boardID');
+    	$id = $this->_get('id');
+    	$this->assign('boardID',$boardID);
+    	$this->assign('id',$id);
+    	//渲染标题栏
+    	IndexAction::xuanranbianlan($this);
+    }
+    
+    public function PullNewRePost()
+    {
+    	//IndexAction::powerCheck();
+    	$condition['boardID'] = $this->_post('boardID');
+    	$condition['parentID'] = $this->_post('id');
+    	//$condition['title'] = $this->_post('title');
+    	$condition['content'] = $this->_post('content');
+    	$condition['author'] = session('userName');
+    	$condition['createTime'] = date("Y-m-d H:i:s");
+    	$condition['updateTime'] = date("Y-m-d H:i:s");
+    	 
+    	$dbUser = M("bbspost");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
+    	$re = $dbUser->add($condition);
+    	 
+    	if($re)
+    	{
+    		$this->success('回帖成功','index');
+    	}
+    	else
+    	{
+    		$this->error('回帖失败');
+    	}
     }
 }

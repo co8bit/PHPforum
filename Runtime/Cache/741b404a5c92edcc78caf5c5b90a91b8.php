@@ -281,10 +281,12 @@
               <ul class="nav">
                 <li class="active"><a href="__URL__">Home</a></li>
                 <li><a href="__URL__/aboutMe">About</a></li>
-              </ul>
+               </ul>
 			<p class="navbar-text pull-right">
+            	<a href="__URL__/newpost.php?boardID=<?php echo ($boardID); ?>">发表新帖</a>
             	  当前身份： <?php echo ($VuserName); ?>
             </p>
+           
             </div><!--/.nav-collapse -->
           </div><!-- /.navbar-inner -->
         </div><!-- /.navbar -->

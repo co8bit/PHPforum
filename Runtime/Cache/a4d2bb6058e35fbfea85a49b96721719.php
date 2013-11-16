@@ -283,6 +283,7 @@
                 <li><a href="__URL__/aboutMe">About</a></li>
               </ul>
 			<p class="navbar-text pull-right">
+				<a href="__URL__/newrepost.php?boardID=<?php echo ($boardID); ?>&id=<?php echo ($id); ?>">回复帖子</a>
             	  当前身份： <?php echo ($VuserName); ?>
             </p>
             </div><!--/.nav-collapse -->

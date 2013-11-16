@@ -1,0 +1,60 @@
+<?php if (!defined('THINK_PATH')) exit();?><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo ($Vsoftname); ?></title>
+<!-- Bootstrap -->   <link href="__TMPL__css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+   <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+      <form class="form-signin" id="pull" name=""pull"" method="post" action="__URL__/pullNewPost" >
+      	<input type="hidden" name="boardID"  value=<?php echo ($boardID); ?>>
+        <h2 class="form-signin-heading">发表新帖子</h2>
+        	标题<input type="text" class="input-block-level"  name="title">
+        	内容 <textarea type="" class="" name="content"> </textarea>
+        <button class="btn btn-large btn-primary" type="submit">发表</button>
+        <!-- TODO:返回首页功能 -->
+      </form>
+
+    </div> <!-- /container --> 
+
+    <!-- Bootstrap -->    <script src="__TMPL__js/bootstrap.min.js"></script>
+
+</body>
+</html>
