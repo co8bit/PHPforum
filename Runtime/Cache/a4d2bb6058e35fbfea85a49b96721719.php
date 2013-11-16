@@ -308,7 +308,7 @@
 
       <!-- START THE FEATURETTES -->
 		<div class="featurette">
-				<h2 class="featurette-heading">主题：<?php echo ($title); ?></a></h2>
+				板块：<a href="__URL__/board.php?id=<?php echo ($boardID); ?>"><?php echo ($boardName); ?></a>--><h2 class="featurette-heading">主题：<?php echo ($title); ?></a></h2>
 		</div>
 		<?php if(is_array($boardList)): $i = 0; $__LIST__ = $boardList;if( count($__LIST__)==0 ) : echo "没有板块" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><hr class="featurette-divider">
 	

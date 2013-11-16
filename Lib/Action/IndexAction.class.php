@@ -139,15 +139,22 @@ class IndexAction extends Action
     	$dbUser = $dbUser -> where($boardID) -> where('parentID=id' ) ->order('updateTime desc')-> select();
     	$this->assign('boardList',$dbUser);
     	$this->assign('boardID',$boardID['boardID']);
+    	
+    	$dbUser2 = M("board");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
+    	$temp = $dbUser2 -> where($boardID) -> select();
+    	$this->assign('boardName',$temp[0]['boardName']);//NOTE:它就是个二维数组，不存在$temp[0].['boardName']的操作
     	//dump($dbUser);
     	//渲染标题栏
     	IndexAction::xuanranbianlan($this);
     }
     
-    public function bbspost()
+    public function bbsPost()
     {
     	//IndexAction::powerCheck();
+    	$dbUser2 = M("board");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
     	$condition['boardID'] = $this->_get('boardID');
+    	$temp = $dbUser2 -> where($condition) -> select();
+    	
     	$condition['parentID'] = $this->_get('id');
     	$dbUser = M("bbspost");//NOTE:thinkphp是用参数名确定是哪个数据库的，比如M("User")的User
     	$dbUser = $dbUser -> where($condition) ->order('createTime desc') -> select();
@@ -157,6 +164,8 @@ class IndexAction extends Action
     	$this->assign('title',$title);
     	$this->assign('boardID',$condition['boardID']);
     	$this->assign('id',$condition['parentID']);
+    	$this->assign('boardName',$temp[0]['boardName']);//NOTE:它就是个二维数组，不存在$temp[0].['boardName']的操作
+    	//trace($temp[0]['boardName'],"my:","sql");
     	//dump($dbUser);
     	//渲染标题栏
     	IndexAction::xuanranbianlan($this);
